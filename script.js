@@ -1,5 +1,4 @@
 let resultDisplay = document.getElementById("result");
-// let turnDisplay = document.getElementById("turn");
 let turnOne = document.getElementById("turnOne");
 let turnTwo = document.getElementById("turnTwo");
 let cell = document.getElementsByClassName('cell');
@@ -23,14 +22,15 @@ let symbol = "X";
 let gameState = ["", "", "", "", "", "", "", "", ""];
 turnMessage();
 
-//Make restart button clickable
-document.getElementById("restartButton").addEventListener("click", restartGame);
+//Make clear button clickable
+document.getElementById("clearButton").addEventListener("click", clearGame);
 
 //Make grid cells clickable and call handlecellclick on click
 for (let i = 0; i< cell.length; i++){
     cell[i].addEventListener("click", handleCellClick);
 }
 
+//on click on the cell
 function handleCellClick(cellClickedEvent) {
     const cellClicked = cellClickedEvent.target;
     const cellClickedIndex = parseInt(cellClicked.getAttribute('data-cell-index'));
@@ -40,10 +40,9 @@ function handleCellClick(cellClickedEvent) {
     if (gameState[cellClickedIndex] !== "" || !gameActive) {
         console.log("stop");
         return;
-
     } 
-        handleCellPlayed(cellClicked, cellClickedIndex);
-        handleResultValidation();
+    handleCellPlayed(cellClicked, cellClickedIndex);
+    handleResultValidation();
     console.log(gameState)
 }
 
@@ -52,16 +51,16 @@ function handleCellPlayed(cellClicked, cellClickedIndex) {
     gameState[cellClickedIndex] = symbol;
     cellClicked.innerHTML = symbol;
     if (symbol=="X"){
-        document.getElementsByClassName("cell")[cellClickedIndex].style.color = "blue";
+        document.getElementsByClassName("cell")[cellClickedIndex].style.color = "#C2FFFD";
     }else{
-        document.getElementsByClassName("cell")[cellClickedIndex].style.color = "red";
+        document.getElementsByClassName("cell")[cellClickedIndex].style.color = "#FDBEC8";
     }
 }
 
 //See if there is a win/draw or if the game continues
 function handleResultValidation() {
     let roundWon = false;
-    //loop through the win conditions
+    //loop through the 8 win conditions
     for (let i = 0; i <= 7; i++)  {
         const winCondition = winningConditions[i];
         //if 3 different symbols on the position of the win condition => continue
@@ -81,15 +80,15 @@ function handleResultValidation() {
     }
         
 if (roundWon) {
+    gameActive = false
     resultMessage("win");
-        gameActive = false;
         return;
     }
     //if no "" in gamestate => means grid is full
     let roundDraw = !gameState.includes("");
     if (roundDraw) {
-        resultMessage("draw");
         gameActive = false;
+        resultMessage("draw");
         return;
     }
     handlePlayerChange();
@@ -109,7 +108,6 @@ function handlePlayerChange() {
 
 //display wich turn it is
 function turnMessage(){
-    // turnDisplay.innerHTML = "It's the turn of " + currentPlayer;
     if (currentPlayer =="Player One"){
         turnOne.style.display = "block";
         turnTwo.style.display="none";
@@ -122,16 +120,46 @@ function turnMessage(){
 //display result message
 function resultMessage(result){
     if (result =="win" && currentPlayer =="Player One"){
-    resultDisplay.innerHTML = currentPlayer + " has won !";
-    resultDisplay.style.color = "blue";
+        swal({
+            title: "Player ONE wins !",
+            text:" Do you want to play again ? ",
+            button: "Restart the game",
+            customClass:"swalPlayerOne",
+          })
+          .then((value) => {
+            if(value){
+                clearGame();
+            }
+          });
     }else if (result =="win" && currentPlayer =="Player Two"){
-        resultDisplay.innerHTML = currentPlayer + " has won !";
-        resultDisplay.style.color = "red";
-        }else{resultDisplay.innerHTML = "Draw !";}
+        swal({
+            title: "Player TWO wins !",
+            text:" Do you want to play again ?",
+            button: "Restart the game",
+            customClass:"swalPlayerTwo",
+          })
+          .then((value) => {
+            if(value){
+                clearGame();
+            }
+          });
+        }else{
+            swal({
+                title: "It's a draw !",
+                text:" Do you want to play again ?",
+                button: "Restart the game",
+                customClass:"swalDraw",
+              })
+              .then((value) => {
+                if(value){
+                    clearGame();
+                }
+              });
+        }
 }
 
 //Reset the game
-function restartGame() {
+function clearGame() {
     gameActive = true;
     currentPlayer = "Player One";
     symbol = "X";
@@ -139,5 +167,5 @@ function restartGame() {
     turnMessage();
     for (let i = 0; i< cell.length; i++){
         cell[i].innerHTML="";
-    }
+    };
 }

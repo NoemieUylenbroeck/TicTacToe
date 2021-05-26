@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <h1> Tic Tac Toe ! </h1>
-    <h2>The first player to align 3 symbols wins ! </h2>
-    <h2 id="turnOne"> Your turn player One !</h2>
-    <h2 id="turnTwo"> Your turn player Two !</h2>
+    <!-- <h2 class="rules">The first player to align 3 symbols wins ! </h2> -->
+    <h2 id="turnOne" class="blue"> Your turn player One !</h2>
+    <h2 id="turnTwo" class="red"> Your turn player Two !</h2>
     <section class="grid">
         <div data-cell-index="0" class="cell"></div>
         <div data-cell-index="1" class="cell"></div>
@@ -23,8 +23,9 @@
         <div data-cell-index="7" class="cell"></div>
         <div data-cell-index="8" class="cell"></div>
     </section>
-    <h2 class="result" id="result"></h2>
-    <button id="restartButton">Restart Game</button>
+    <button id="clearButton">Clear Game</button>
+    <!-- Script for Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

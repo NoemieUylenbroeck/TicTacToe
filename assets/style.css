@@ -1,0 +1,82 @@
+@font-face {
+    font-family: 'eraserregular';
+    src: url('fontfamily/EraserRegular-webfont.eot');
+    src: url('fontfamily/EraserRegular-webfont.woff') format('woff'),
+         url('fontfamily/EraserRegular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body{
+    background-image: url(../assets/blackboard.jpg);
+    font-family: 'eraserregular';
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 306px;
+    margin: 50px auto;
+}
+.cell {
+    width: 100px;
+    height: 100px;
+    border: 3px solid white;
+    cursor: pointer;
+    line-height: 100px;
+    font-size: 60px;
+}
+
+.blue{
+    color : #C2FFFD;
+}
+
+.red{
+    color : #FDBEC8;
+}
+
+h1{
+    text-align: center;
+    color : white;
+    font-size: 4em;
+
+}
+
+h2{
+    font-size: 2em;
+}
+
+#clearButton{
+    text-decoration: none;
+    border : 1px white solid;
+    color : white;
+    background : none;
+    margin:auto;
+    display:block;
+    font-size: 1.5em;
+    font-family: 'eraserregular';
+}
+
+#clearButton:hover{
+    font-size: 1.6em;
+    color : #8FD672;
+    border: 1px #8FD672 solid;
+}
+
+.swal-button{
+    background-color: #302F33;
+}
+
+.swalDraw{
+    color:#FEFED4;
+}
+
+.swalPlayerOne{
+    color:#C2FFFD;
+}
+
+.swalPlayerTwo{
+    color: #FDBEC8;
+}
